@@ -1,0 +1,20 @@
+<b><#selectbg_g>DarkSide V1 BugFix list</#></b>
+<*>In notification dark text</*>
+<*>in my files in action bar few icons not seenable</*>
+<*>in setting search bar is white with white background</*>
+<*>white background on copy/move to in my files</*>
+<*>Text in music player on lockscreen and notif badge</*>
+<*>white background on typing bar in add on circle contacts</*>
+<*>Device maintanance not inverted</*>
+<*>MyFiles copy/move to white bckg</*>
+<*>White background on actions buttons app related</*>
+<*> White background in some popout dialogs</*>
+<*>Some black items on apps edge setting and reorder</*>
+<*>White background on quick connect bar(pulldown menu)</*>
+<*>Black phone number in actionbar</*>
+<*>Some dark items in actions menu of messages</*>
+<*></*>
+<*></*>
+
+
+

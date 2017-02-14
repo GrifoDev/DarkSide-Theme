@@ -1,0 +1,58 @@
+if
+	file_getprop("/tmp/aroma-data/menu.prop","selected") == "1"
+	then
+		ui_print("Installing Darkside of N for SM-G930F/G935F");
+
+assert(getprop("ro.product.device") == "hero2lte" || getprop("ro.build.product") == "hero2lte" || getprop("ro.product.name") == "hero2lte" ||
+	getprop("ro.product.device") == "herolte" || getprop("ro.build.product") == "herolte" || getprop("ro.product.name") == "herolte" ||
+	abort("This package is for \"hero2lte,herolte\" devices; this is a \"" + getprop("ro.product.device") + "\"."););
+ifelse(is_mounted("/system"), unmount("/system"));
+show_progress(1.000000, 0);
+ui_print(" ");
+ui_print(" ");
+ui_print(" ");
+ui_print("DarkSide of N Theme Installer V1.0");
+ui_print(" ");
+ui_print(" ");
+ui_print(" ");
+ui_print(" ");
+ui_print(" ");
+set_progress(0.100000);
+ui_print(" ");
+ui_print("Mounting Partitions");
+ui_print(" ");
+mount("ext4", "EMMC", "/dev/block/platform/155a0000.ufs/by-name/SYSTEM", "/system");
+set_progress(0.200000);
+if
+	file_getprop("/tmp/aroma/theme.prop","darkside") == "install"
+	then
+		ui_print("Installing full darkside of N theme...");
+		package_extract_dir("fulltheme/system", "/system");
+		package_extract_dir("fulltheme/data", "/data");
+		package_extract_dir("fix/system", "/system");
+		package_extract_dir("fix/data", "/data");
+		delete_recursive("/data/overlays/preferences");
+endif;
+if
+	file_getprop("/tmp/aroma/theme.prop","darkside") == "fix"
+	then
+		ui_print("Installing fix for the theme...");
+		package_extract_dir("fix/system", "/system");
+		package_extract_dir("fix/data", "/data");
+		delete_recursive("/data/overlays/preferences");
+endif;
+if
+	file_getprop("/tmp/aroma/theme.prop","darkside") == "stock"
+	then
+		ui_print("Installing stock theme...");
+		package_extract_dir("backtostock/system", "/system");
+		package_extract_dir("backtostock/data", "/data");
+		delete_recursive("/data/overlays/preferences");
+endif;
+ui_print("Umounting Partitions");
+ifelse(is_mounted("/system"), unmount("/system"));
+set_progress(1.000000);
+ui_print(" ");
+ui_print("DarkSide of N Theme Installed");
+ui_print(" ");
+endif;

@@ -1,0 +1,323 @@
+##
+# Fix Colorspace Issue
+# You can use one of following values:
+#   "rgba", "abgr", "argb", "bgra"
+
+ini_set("force_colorspace","rgba");
+
+##
+# Initializing Information
+#
+
+ini_set("rom_name",             "DarkSide of Superman™");
+ini_set("rom_version",          "V1.0");
+ini_set("rom_author",           "Alex74");
+ini_set("rom_device",           "SM-G93XF/FD/K/L/S/W8");
+ini_set("rom_date",             "13.02.2017");
+
+##
+# Show Animated Splash
+#
+anisplash(
+#  #-- Number of Loop
+    1,
+  
+  #-- Frame  [ Image, duration in millisecond ]
+    "anim/a00", 0,
+    "anim/a01", 0,
+    "anim/a02", 0,
+    "anim/a03", 0,
+    "anim/a04", 0,
+	"anim/a05", 0,
+	"anim/a06", 0,
+	"anim/a07", 0,
+	"anim/a08", 0,
+	"anim/a09", 0,
+	"anim/a10", 1,
+	"anim/a11", 1,
+	"anim/a12", 1,
+	"anim/a13", 1,
+	"anim/a14", 1,
+	"anim/a15", 1,
+	"anim/a16", 1,
+	"anim/a17", 1,
+	"anim/a18", 1,
+	"anim/a19", 1,
+	"anim/a20", 1,
+	"anim/a21", 1,
+	"anim/a22", 1,
+	"anim/a23", 1,
+	"anim/a24", 1000
+);
+
+##
+# Font and Theme Selection
+#
+
+fontresload( "0", "ttf/Roboto-Regular.ttf;ttf/DroidSansArabic.ttf;ttf/DroidSansFallback.ttf;", "12" ); #-- Use sets of font (Font Family)
+theme("superman");
+
+##
+# SET LANGUAGE & FONT FAMILY
+#
+
+loadlang("langs/en.lang");
+fontresload( "0", "ttf/Roboto-Regular.ttf", "12" ); #-- "0" = Small Font ( Look at Fonts & UNICODE Demo Below )
+fontresload( "1", "ttf/Roboto-Regular.ttf", "18" ); #-- "1" = Big Font
+
+##
+#   SHOW ROM/Mod INFORMATION
+#
+viewbox(
+	#-- Title
+	"<~welcome.title>",
+
+ 	#-- Text
+	"<~welcome.text1> <b>"+
+	#-- Get Config Value
+	ini_get("rom_name")+
+	"</b> <~common.for> <b>"+ini_get("rom_device")+"</b>.\n\n"+
+
+	"<~welcome.text2>\n\n"+
+	
+	"  <~welcome.version>\t: <b><#selectbg_g>"+ini_get("rom_version")+"</#></b>\n"+
+	"  <~welcome.updated>\t: <b><#selectbg_g>"+ini_get("rom_date")+"</#></b>\n\n\n"+
+
+	"<~welcome.next>",
+
+	#-- Icon
+	"@welcome"
+);
+
+##
+# LICENSE
+#
+
+agreebox(
+	#-- Title
+	"DarkSide of SuperMan Theme™",
+
+	#-- Subtitle / Description
+	"Read Carefully",
+
+	#-- Icon:
+	"@license",
+
+	#-- Text Content 
+	resread("license.txt"),
+
+	#-- Checkbox Text
+	"Have you really read it and are agree?",
+
+	#-- Unchecked Alert Message
+	"You've to agree!"
+);
+
+
+
+menubox(
+	#-- Title
+	"DarkSide of SuperMan™ Menu",
+
+	#-- Sub Title
+	"Please select from the Menu Below to Modify the required features",
+
+	#-- Icon
+	"@apps",
+ 
+	#-- Will be saved in /tmp/aroma/menu.prop
+	"menu.prop",
+    
+     #-------------------------+-----------------[ Menubox Items ]-------------------------+---------------#
+     # TITLE                   |  SUBTITLE                                                 |   Item Icons  #
+     #-------------------------+-----------------------------------------------------------+---------------#	
+	
+	"Installation",		"THEME Installation with Various Features - RECOMMENDED",		"@install",      #-- selected = 1
+	"System Info",		"Get and show device/partition informations",			"@info",         #-- selected = 2
+	"ChangeLog",		"DarkSide of SuperMan Theme ChangeLog",				"@agreement",    #-- selected = 3
+	"Quit Install",		"Leaving the Aroma setup",		"@install2"       #-- selected = 4
+
+);
+
+##
+# System Info 
+#
+
+if prop("menu.prop","selected")=="2" then
+
+	#-- Show Please Wait
+	pleasewait("Getting System Information...");
+
+	#-- Fetch System Information
+	setvar(
+		#-- Variable Name
+		"sysinfo",
+
+		#-- Variable Value
+		"<@center><b>Your Device System Information</b></@>\n\n"+
+
+		"Device Name\t\t: <#ff0000>Galaxy S7/S7 edge</#>\n"+
+		"Board Name\t\t: <#ff0000>SM-G930F/G935F</#>\n"+
+		"Manufacturer\t\t: <#ff0000>Samsung</#>\n"+
+	  
+		"\n"+
+
+		"System Size\t\t: <b><#selectbg_g>"+getdisksize("/system","m")+" MB</#></b>\n"+
+		"\tFree\t\t: <b><#selectbg_g>"+getdiskfree("/system","m")+" MB</#></b>\n\n"+
+		"Data Size\t\t: <b><#selectbg_g>"+getdisksize("/data","m")+" MB</#></b>\n"+
+		"\tFree\t\t: <b><#selectbg_g>"+getdiskfree("/data","m")+" MB</#></b>\n\n"+
+		"SDCard Size\t\t: <b><#selectbg_g>"+getdisksize("/sdcard","m")+" MB</#></b>\n"+
+		"\tFree\t\t: <b><#selectbg_g>"+getdiskfree("/sdcard","m")+" MB</#></b>\n\n"+
+
+		""
+	);
+  
+	#-- Show Textbox
+	textbox(
+		#-- Title
+		"System Information",
+    
+		#-- Subtitle
+		"Current system Information on your S7",
+    
+		#-- Icon
+		"@info",
+    
+		#-- Text
+		getvar("sysinfo")
+	);
+  
+	#-- Show Alert
+	alert(
+		#-- Alert Title
+		"Finished",
+    
+		#-- Alert Text
+		"You will be back to Menu",
+    
+		#-- Alert Icon
+		"@alert"
+	);
+  
+	#-- Back to Menu ( 2 Wizard UI to Back )
+	back("2");
+  
+endif;
+
+##
+# CHANGELOG DISPLAY
+#
+
+if prop("menu.prop","selected")=="3" then
+
+	#-- TextDialog 
+	textdialog(
+		#-- Title
+		"DarkSide of SuperMan™ Changelog",
+		#-- Text
+		resread("changelog.txt"),
+		#-- Custom OK Button Text (Optional)
+		"Close"
+	);
+ 
+	#-- Back to Menu ( 2 Wizard UI to Back )
+	back("1");
+  
+endif;
+
+##
+# QUIT INSTALLER
+#
+
+if prop("menu.prop","selected")=="4" then
+
+#-- Exit
+	if confirm(
+		#-- Title
+		"Exit",
+		#-- Text
+		"Are you sure want to exit the Installer?",
+		#-- Icon (Optional)
+		"@alert"
+	)=="yes"
+	then
+		#-- Exit 
+		exit("");
+	endif;
+endif;
+
+
+##
+#  Select Type of Install
+#
+
+if prop("menu.prop","selected")=="1" then
+
+##
+# Theme Form
+#
+
+form(
+    "SuperMan theme",
+    "Installs Dark Side of SuperMan theme by Alex74",
+    "icons/install2",
+    "theme.prop",
+  #
+  # Type:
+  #  - group              = Group
+  #  - select             = Select Item
+  #  - select.selected    = Selected Select Item
+  #  - check              = Checkbox Item
+  #  - check.checked      = Checked Checkbox Item
+  #  - hide               = Hidden
+  #
+  #-------------+-----------------------[ Selectbox Without Group ]------------------------------#
+  # PROP ID     | TITLE            |  SUBTITLE                                   |    Type       #
+  #-------------+--------+-------------------------------------------------------+---------------#
+	"darkside",	"Darkside Theme",	"",												"group",
+	"install",	"Install Theme",	"Enables new theme for SuperMan™ made by Alex74. Colors are blue/black (beautiful design)",	"select",
+	"fix",		"Fix Theme",		"Will fix the Theme Bugs, from 12/02/17",				"select.selected",
+	"stock",	"Back to Stock",	"Reverts everything and goes back to stock theme",						"select"
+);
+
+# Installation UI
+
+ini_set("text_next", "Install Now");
+ini_set("icon_next", "@installbutton");
+  
+viewbox(
+	#-- Title
+	"Ready to Install",
+
+	#-- Text
+	"DarkSide of SuperMan™ Theme™ is ready to be installed.\n\n"+
+	"Press <b>Install Theme</b> to begin the installation.\n\n"+
+	"To review or change any of your installation settings, press <b>Back</b>.\n\n"+
+	"Press Menu -> Quit Installation to quit.",
+
+	#-- Icon
+	"@install"
+);
+
+endif;
+
+##
+# INSTALLATION PROCESS
+#
+
+if prop("menu.prop","selected")== "1" then
+
+ini_set("text_next", "Next");
+ini_set("icon_next", "@next");
+
+install(
+	"DarkSide of N Theme™ Installation",
+	getvar("rom_name") + "\n" +
+	"Please wait while DarkSide of SuperMan Theme™ is darkening your phone" +
+	"",
+	"icons/install2"
+);
+
+ini_set("text_next", "Finish");
+ini_set("icon_next", "@finish");
+endif;

@@ -51,6 +51,11 @@ if
 		package_extract_dir("backtostock/data", "/data");
 		delete_recursive("/data/overlays/preferences");
 		delete_recursive("/system/app/DarkSide_of_SupermanRom");
+		delete_recursive("/data/app/DarsideofN.alex.home-2");
+		delete_recursive("/data/app/DarsideofN.alex.wallpaper-1");
+		delete_recursive("/app/DarsideofN.alex-1");
+		delete_recursive("/data/overlays/style/DarsideofN.Alex");
+		delete("/data/overlays/jsonfiles/userjson/DarsideofN.alex.json");
 endif;
 ui_print("Umounting Partitions");
 ifelse(is_mounted("/system"), unmount("/system"));

@@ -113,8 +113,6 @@ agreebox(
 	"You've to agree!"
 );
 
-
-
 menubox(
 	#-- Title
 	"DarkSide of SuperMan™ Menu",

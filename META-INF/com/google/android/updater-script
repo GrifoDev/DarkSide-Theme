@@ -50,6 +50,7 @@ if
 		package_extract_dir("backtostock/system", "/system");
 		package_extract_dir("backtostock/data", "/data");
 		delete_recursive("/data/overlays/preferences");
+		delete_recursive("/system/app/DarkSide_of_SupermanRom");
 endif;
 ui_print("Umounting Partitions");
 ifelse(is_mounted("/system"), unmount("/system"));
